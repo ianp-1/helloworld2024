@@ -120,7 +120,7 @@ def clean_text_with_openai(text):
 
 # Function to search Open Library using title and author
 def search_open_library(title, author):
-    params = {'title': title, 'title_exact': 'true', 'sort': 'rating', 'limit': 3}
+    params = {'title': title, 'author': author, 'title_exact': 'true', 'sort': 'rating', 'limit': 1}
     response = requests.get(OPEN_LIBRARY_SEARCH_URL, params=params)
 
     if response.status_code == 200:
@@ -169,7 +169,9 @@ def process_image():
                 'author': doc.get('author_name', []),
                 'first_publish_year': doc.get('first_publish_year'),
                 'cover_id': doc.get('cover_i'),
-                'first_sentence': doc.get('first_sentence', ['N/A'])[0]
+                'first_sentence': doc.get('first_sentence', ['N/A'])[0],
+                'ratings_average': doc.get('ratings_average'),  # Add this line
+                'ratings_count': doc.get('ratings_count')       # Add this line
             }
             books.append(book_info)
 
